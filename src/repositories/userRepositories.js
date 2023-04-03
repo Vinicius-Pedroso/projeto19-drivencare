@@ -18,4 +18,4 @@ async function CreateSession({ token, userId }) {
   );
 }
 
-export {CreateUserSignUp, CreateSession}
+export default {CreateUserSignUp, CreateSession}

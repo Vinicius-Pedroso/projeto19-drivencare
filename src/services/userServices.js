@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { v4 as uuidV4 } from "uuid";
 import userRepositories from "../repositories/userRepositories.js";
-import errors from "../errors/index.js";
+import errors from "../errors/errors.js";
 
 async function CreateUserSignUp({ name, email, password }) {
 
