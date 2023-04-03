@@ -8,4 +8,14 @@ async function CreateUserSignUp({ name, email, password }) {
     );
 }
 
-export {CreateUserSignUp}
+async function CreateSession({ token, userId }) {
+  await connectionDb.query(
+    `
+        INSERT INTO sessions (token, "userId")
+        VALUES ($1, $2)
+    `,
+    [token, userId]
+  );
+}
+
+export {CreateUserSignUp, CreateSession}

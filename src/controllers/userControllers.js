@@ -10,10 +10,10 @@ async function SignUpUser(req, res, next) {
   }
 }
 
-async function SignInUser(req, res, next) {
+async function SignInUserController(req, res, next) {
   const { email, password } = req.body;
   try {
-    const token = await userServices.signin({ email, password });
+    const token = await userServices.SignInUser({ email, password });
     return res.send({ token });
   } catch (err) {
     next(err);
@@ -22,5 +22,5 @@ async function SignInUser(req, res, next) {
 
 export default {
   SignUpUser,
-  SignInUser,
+  SignInUserController,
 };

@@ -12,4 +12,20 @@ async function CreateUserSignUp({ name, email, password }) {
   await userRepositories.CreateUserSignUp({ name, email, password: hashPassword });
 }
 
-export { CreateUserSignUp }
+async function SignInUser({ email, password }) {
+  const {
+      rowCount,
+      rows: [user],
+    } = await userRepositories.FindByEmail(email);
+  if (!rowCount) throw errors.invalidCredentialsError();
+
+  const validPassword = await bcrypt.compare(password, user.password);
+  if (!validPassword) throw errors.invalidCredentialsError();
+
+  const token = uuidV4();
+  await userRepositories.CreateSession({ token, user_Id: user.id });
+
+  return token;
+}
+
+export { CreateUserSignUp, SignInUser }
