@@ -20,7 +20,20 @@ async function SignInUserController(req, res, next) {
   }
 }
 
+async function UserGetDoctors(req, res, next){
+  const { city, field, name } = req.query;
+
+  try {
+    const doctorData = await userServices.FindDoctors(city, field, name);
+
+    return res.send({ doctorData });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export default {
   SignUpUser,
   SignInUserController,
+  UserGetDoctors
 };

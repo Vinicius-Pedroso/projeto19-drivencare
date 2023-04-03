@@ -37,3 +37,15 @@ async function SignInDoctor({ email, password }) {
 }
 
 export default { CreateDoctorSignUp, SignInDoctor }
+
+
+
+
+
+
+
+
+
+
+
+

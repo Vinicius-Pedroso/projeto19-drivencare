@@ -28,4 +28,12 @@ async function SignInUser({ email, password }) {
   return token;
 }
 
-export { CreateUserSignUp, SignInUser }
+async function FindDoctors({city, field, name}){
+
+  const { rows, rowCount } = await userRepositories.FindDoctorsQuery(city, field, name);
+  if (!rowCount) throw errors.NotFoundError();
+  return rows;
+
+}
+
+export { CreateUserSignUp, SignInUser, FindDoctors }

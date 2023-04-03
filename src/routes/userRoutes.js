@@ -7,5 +7,6 @@ const userRoutes = Router();
 
 userRoutes.post("/signup", ValidationSchema(userSignUpSchema), userControllers.SignUpUser);
 userRoutes.post("/signin", userControllers.SignInUserController);
+userRoutes.get("/getdoctor", )
 
 export default userRoutes;

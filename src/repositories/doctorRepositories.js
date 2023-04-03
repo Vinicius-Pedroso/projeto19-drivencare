@@ -3,7 +3,7 @@ import connectionDb from "../config/database.js";
 async function CreateDoctorSignUpQuery({ name, email, CRM, city, field, password}) {
     return await connectionDb.query(
       `
-          INSERT INTO doctors (name, email, crm, city, field, password)
+          INSERT INTO doctors (name, email, cmr, city, field, password)
           VALUES ($1, $2, $3, $4, $5, $6)
       `,
       [name, email, CRM, city, field, password]
@@ -13,7 +13,7 @@ async function CreateDoctorSignUpQuery({ name, email, CRM, city, field, password
 async function FindByCRM({CRM}) {
   return await connectionDb.query(
     `    
-    SELECT * FROM doctors WHERE crm=$1
+    SELECT * FROM doctors WHERE cmr=$1
   `,
     [CRM]
   );
@@ -38,4 +38,32 @@ async function CreateSession({ token, doctorId }) {
   );
 }
 
-export default {CreateDoctorSignUpQuery, FindByCRM, FindByEmail, CreateSession}
+async function FindDoctorsQuery({city, field, name}){
+
+  if (city){
+    return await connectionDb.query(
+      `    
+      SELECT * FROM doctors WHERE city=$1
+    `,
+      [city]
+    );
+  }
+  if (field){
+    return await connectionDb.query(
+      `    
+      SELECT * FROM doctors WHERE field=$1
+    `,
+      [field]
+    );
+  }
+  if(name){
+    return await connectionDb.query(
+      `    
+      SELECT * FROM doctors WHERE name=$1
+    `,
+      [name]
+    );
+  }
+}
+
+export default {CreateDoctorSignUpQuery, FindByCRM, FindByEmail, CreateSession, FindDoctorsQuery}

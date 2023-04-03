@@ -21,4 +21,11 @@ function invalidCredentialsError() {
   };
 }
 
-export default { duplicatedEmailError, duplicatedCRMError, invalidCredentialsError } 
+function NotFoundError() {
+  return {
+    name: "NotFoundError",
+    message: "No result for this search!",
+  };
+}
+
+export default { duplicatedEmailError, duplicatedCRMError, invalidCredentialsError, NotFoundError } 
