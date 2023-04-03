@@ -1,11 +1,11 @@
 async function CreateUserSignUp({ name, email, password }) {
-    return await connectionDb.query(
-      `
+  return await connectionDb.query(
+    `
           INSERT INTO users (name, email, password)
           VALUES ($1, $2, $3)
       `,
-      [name, email, password]
-    );
+    [name, email, password]
+  );
 }
 
 async function CreateSession({ token, userId }) {
@@ -18,7 +18,7 @@ async function CreateSession({ token, userId }) {
   );
 }
 
-async function FindByEmail({email}) {
+async function FindByEmail({ email }) {
   return await connectionDb.query(
     `    
     SELECT * FROM users WHERE email=$1
@@ -27,9 +27,9 @@ async function FindByEmail({email}) {
   );
 }
 
-async function FindDoctorsQuery({city, field, name}){
+async function FindDoctorsQuery({ city, field, name }) {
 
-  if (city){
+  if (city) {
     return await connectionDb.query(
       `    
       SELECT * FROM doctors WHERE city=$1
@@ -37,7 +37,7 @@ async function FindDoctorsQuery({city, field, name}){
       [city]
     );
   }
-  if (field){
+  if (field) {
     return await connectionDb.query(
       `    
       SELECT * FROM doctors WHERE field=$1
@@ -45,7 +45,7 @@ async function FindDoctorsQuery({city, field, name}){
       [field]
     );
   }
-  if(name){
+  if (name) {
     return await connectionDb.query(
       `    
       SELECT * FROM doctors WHERE name=$1
@@ -55,4 +55,34 @@ async function FindDoctorsQuery({city, field, name}){
   }
 }
 
-export default {CreateUserSignUp, CreateSession, FindByEmail, FindDoctorsQuery}
+async function FindUser({ user }) {
+  return await connectionDb.query(
+    `    
+    SELECT * FROM users WHERE name=$1
+  `,
+    [user]
+  );
+}
+
+async function FindDoctor({ doctor }) {
+  return await connectionDb.query(
+    `    
+    SELECT * FROM doctors WHERE name=$1
+  `,
+    [doctor]
+  );
+}
+
+async function CheckAvailability (day_of_oppointment, appointment_start){
+
+}
+
+export default {
+  CreateUserSignUp,
+  CreateSession,
+  FindByEmail,
+  FindDoctorsQuery,
+  FindUser,
+  FindDoctor,
+  CheckAvailability
+}

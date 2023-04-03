@@ -36,4 +36,17 @@ async function FindDoctors({city, field, name}){
 
 }
 
-export { CreateUserSignUp, SignInUser, FindDoctors }
+async function CreateUserAppointment({user, doctor, day_of_oppointment, appointment_start, appointment_end}){
+
+  const userCheck = await userRepositories.FindUser(user);
+  if (!userCheck) throw errors.NotFoundError(user);
+
+  const doctorCheck = await userRepositories.FindDoctor(doctor);
+  if (!doctorCheck) throw errors.NotFoundError(doctor);
+
+  const checkAvailability = await userRepositories.CheckAvailability(day_of_oppointment, appointment_start);
+  if (checkAvailability) throw errors.InvalidDate();
+
+}
+
+export { CreateUserSignUp, SignInUser, FindDoctors, CreateUserAppointment }

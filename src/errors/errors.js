@@ -28,4 +28,16 @@ function NotFoundError() {
   };
 }
 
-export default { duplicatedEmailError, duplicatedCRMError, invalidCredentialsError, NotFoundError } 
+function InvalidDate() {
+  return {
+    name: "InvalidDate",
+    message: "This time isn't available",
+  };
+}
+
+export default { duplicatedEmailError,
+   duplicatedCRMError, 
+   invalidCredentialsError, 
+   NotFoundError,
+   InvalidDate
+  } 
