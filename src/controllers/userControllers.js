@@ -12,8 +12,9 @@ async function SignUpUser(req, res, next) {
 
 async function SignInUser(req, res, next) {
   const { email, password } = req.body;
-  try {  
-
+  try {
+    const token = await userServices.signin({ email, password });
+    return res.send({ token });
   } catch (err) {
     next(err);
   }

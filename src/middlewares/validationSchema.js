@@ -3,7 +3,7 @@ export default function ValidationSchema(schema) {
     return (req, res, next) => {
         
         const data = req.body;
-
+        console.log("validation schema")
         const { error } = schema.validate(data, { abortEarly: false });
 
         if (error) {

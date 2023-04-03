@@ -1,19 +1,21 @@
-import {CreateDoctorSignUp} from "../services/doctorServices.js";
+import doctorServices from "../services/doctorServices.js";
 
 async function SignUpDoctor(req, res, next) {
-  const { name, email, CMR, password } = req.body;
+  console.log("signup")
+  const { name, email, CMR, city, field, password } = req.body;
   try {
-    await CreateDoctorSignUp({ name, email, CMR, password });
+    await doctorServices.CreateDoctorSignUp({ name, email, CMR, city, field, password });
     return res.sendStatus(201);
   } catch (err) {
     next(err);
   }
 }
 
-async function SignInDoctor(req, res, next) {
+async function SignInDoctorController(req, res, next) {
   const { email, password } = req.body;
-  try {  
-
+  try {
+    const token = await doctorServices.SignInDoctor({ email, password });
+    return res.send({ token });
   } catch (err) {
     next(err);
   }
@@ -21,5 +23,5 @@ async function SignInDoctor(req, res, next) {
 
 export default {
   SignUpDoctor,
-  SignInDoctor,
+  SignInDoctorController,
 };
